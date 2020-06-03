@@ -39,7 +39,7 @@ opposite_side = side => {
 digilines = {};
 
 digilines.Event = class {
-	constructor(type, chan, msg, side) {
+	constructor(x, y, type, chan, msg, side) {
 		this.x = x;
 		this.y = y;
 		this.type = type;
