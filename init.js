@@ -74,6 +74,6 @@ dragonblocks.registerNode({
 	hardness: 0,
 	desc: "Digiline logging module",
 	digiline: e => {
-		dragonblocks.log("Digiline event occured: " + e);
+		console.log(e);
 	},
 });
