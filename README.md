@@ -26,3 +26,12 @@ If a value is unset, it counts as false.
 This object determines where to send the message (on which sides the message will be sent).
 - chan is the channel on which the message should be sent, typically a string
 - msg is the message to send, the variable type doesn't matter at all
+## Receiving
+Receiving messages works by adding a special property to a MapNode, the digiline property. It has to be a function. It only has one argument, a digilines.Event. A digilines.Event contains the following information:
+- x : int ; the x coordinate of the sender
+- y : int ; the y coordinate of the sender
+- type : String ; the event type, only used value is "digiline"
+- channel : String ; the channel on which the message was sent
+- msg : mixed ; the message that was sent
+- side : Object ; contains information about from which side of the receiver the data could possibly come from
+You can then use this data to make decisions and/or take actions.
