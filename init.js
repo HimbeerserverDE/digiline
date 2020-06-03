@@ -33,7 +33,7 @@ isFunction = functionToCheck => {
  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 }
 opposite_side = side => {
-	return {"left": !side.left, "right": !side.right, "top": !side.top, "bottom": !side.bottom};
+	return {"left": side.left ? false : true, "right": side.right ? false : true, "top": side.top ? false : true, "bottom": side.bottom ? false : true};
 }
 
 digilines = {};
