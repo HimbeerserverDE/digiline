@@ -43,9 +43,10 @@ digilines.Event = class {
 	}
 }
 
-digilines.receptor_send() = (x, y, chan, msg) => {
+digilines.receptor_send() = (x, y, side, chan, msg) => {
 	let digilineEvent = new digilines.Event("digiline", chan, msg);
-	for (let i = x - 1; i < x + 1; i += 2) {
-		if (isFunction(dragonblocks.getNode(i, y).toNode().digiline)) dragonblocks.getNode(i, y).toNode().digiline(digilineEvent);
-	}
+	if (side.left && isFunction(dragonblocks.getNode(x - 1, y).toNode().digiline)) dragonblocks.getNode(x - 1, y).toNode().digiline(digilineEvent);
+	if (side.right && isFunction(dragonblocks.getNode(x + 1, y).toNode().digiline)) dragonblocks.getNode(x + 1, y).toNode().digiline(digilineEvent);
+	if (side.top && isFunction(dragonblocks.getNode(x, y - 1).toNode().digiline)) dragonblocks.getNode(x, y - 1).toNode().digiline(digilineEvent);
+	if (side.bottom && isFunction(dragonblocks.getNode(x, y + 1).toNode().digiline)) dragonblocks.getNode(x, y + 1).toNode().digiline(digilineEvent);
 }
