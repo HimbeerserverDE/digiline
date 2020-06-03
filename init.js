@@ -26,27 +26,54 @@ $.ajaxSetup({
 	cache: false
 });
 
-function sleep(ms) {
+sleep = ms => {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
-function isFunction(functionToCheck) {
+isFunction = functionToCheck => {
  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
+}
+oppsite_side = side => {
+	return {"left": !side.left, "right": !side.right, "top": !side.top, "bottom": !side.bottom};
 }
 
 digilines = {};
 
 digilines.Event = class {
-	constructor(type, chan, msg) {
+	constructor(type, chan, msg, side) {
 		this.type = type;
 		this.channel = chan;
 		this.msg = msg;
+		this.side = side;
 	}
 }
 
-digilines.receptor_send() = (x, y, side, chan, msg) => {
-	let digilineEvent = new digilines.Event("digiline", chan, msg);
+digilines.receptor_send = (x, y, side, chan, msg) => {
+	let digilineEvent = new digilines.Event("digiline", chan, msg, opposite_side(side));
 	if (side.left && isFunction(dragonblocks.getNode(x - 1, y).toNode().digiline)) dragonblocks.getNode(x - 1, y).toNode().digiline(digilineEvent);
 	if (side.right && isFunction(dragonblocks.getNode(x + 1, y).toNode().digiline)) dragonblocks.getNode(x + 1, y).toNode().digiline(digilineEvent);
 	if (side.top && isFunction(dragonblocks.getNode(x, y - 1).toNode().digiline)) dragonblocks.getNode(x, y - 1).toNode().digiline(digilineEvent);
 	if (side.bottom && isFunction(dragonblocks.getNode(x, y + 1).toNode().digiline)) dragonblocks.getNode(x, y + 1).toNode().digiline(digilineEvent);
 }
+
+dragonblocks.registerNode({
+	name: "digilines:digiline",
+	stable: true,
+	mobstable: false,
+	texture: "digiline.png",
+	hardness: 0,
+	desc: "Digiline",
+	digiline: e => {
+		if (e.side.left) digilines.receptor_send(e.x, e.y, {"right": true}, e.chan, e.msg);
+		if (e.side.right) digilines.receptor_send(e.x, e.y, {"left": true}, e.chan, e.msg);
+	},
+});
+dragonblocks.registerNode({
+	name: "digilines:log",
+	stable: true,
+	texture: "digiline.png",
+	hardness: 0,
+	desc: "Digiline logging module",
+	digiline: e => {
+		dragonblocks.log("Digiline event occured: " + e);
+	},
+});
