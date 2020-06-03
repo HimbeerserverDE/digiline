@@ -40,6 +40,8 @@ digilines = {};
 
 digilines.Event = class {
 	constructor(type, chan, msg, side) {
+		this.x = x;
+		this.y = y;
 		this.type = type;
 		this.channel = chan;
 		this.msg = msg;
@@ -48,7 +50,7 @@ digilines.Event = class {
 }
 
 digilines.receptor_send = (x, y, side, chan, msg) => {
-	let digilineEvent = new digilines.Event("digiline", chan, msg, opposite_side(side));
+	let digilineEvent = new digilines.Event(x, y, "digiline", chan, msg, opposite_side(side));
 	if (side.left && isFunction(dragonblocks.getNode(x - 1, y).toNode().digiline)) dragonblocks.getNode(x - 1, y).toNode().digiline(digilineEvent);
 	if (side.right && isFunction(dragonblocks.getNode(x + 1, y).toNode().digiline)) dragonblocks.getNode(x + 1, y).toNode().digiline(digilineEvent);
 	if (side.top && isFunction(dragonblocks.getNode(x, y - 1).toNode().digiline)) dragonblocks.getNode(x, y - 1).toNode().digiline(digilineEvent);
@@ -63,8 +65,8 @@ dragonblocks.registerNode({
 	hardness: 0,
 	desc: "Digiline",
 	digiline: e => {
-		if (e.side.left) digilines.receptor_send(e.x, e.y, {"right": true}, e.chan, e.msg);
-		if (e.side.right) digilines.receptor_send(e.x, e.y, {"left": true}, e.chan, e.msg);
+		if (e.side.left) digilines.receptor_send(e.x + 1, e.y, {"right": true}, e.chan, e.msg);
+		if (e.side.right) digilines.receptor_send(e.x - 1, e.y, {"left": true}, e.chan, e.msg);
 	},
 });
 dragonblocks.registerNode({
