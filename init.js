@@ -33,8 +33,19 @@ function isFunction(functionToCheck) {
  return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]';
 }
 
-digiline = {};
+digilines = {};
 
-digiline.receptor_send() = (x, y, chan, msg) => {
-	if ()
+digilines.Event = class {
+	constructor(type, chan, msg) {
+		this.type = type;
+		this.channel = chan;
+		this.msg = msg;
+	}
+}
+
+digilines.receptor_send() = (x, y, chan, msg) => {
+	let digilineEvent = new digilines.Event("digiline", chan, msg);
+	for (let i = x - 1; i < x + 1; i += 2) {
+		if (isFunction(dragonblocks.getNode(i, y).toNode().digiline)) dragonblocks.getNode(i, y).toNode().digiline(digilineEvent);
+	}
 }
