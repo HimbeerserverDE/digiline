@@ -26,6 +26,8 @@ $.ajaxSetup({
 	cache: false
 });
 
+// API begin
+
 sleep = ms => {
 	return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -57,6 +59,8 @@ digilines.receptor_send = (x, y, side, chan, msg) => {
 	if (side.bottom && isFunction(dragonblocks.getNode(x, y + 1).toNode().digiline)) dragonblocks.getNode(x, y + 1).toNode().digiline(digilineEvent);
 }
 
+// API end
+
 dragonblocks.registerNode({
 	name: "digilines:digiline",
 	stable: true,
@@ -67,15 +71,5 @@ dragonblocks.registerNode({
 	digiline: e => {
 		if (e.side.left) digilines.receptor_send(e.x + 1, e.y, {"right": true}, e.channel, e.msg);
 		if (e.side.right) digilines.receptor_send(e.x - 1, e.y, {"left": true}, e.channel, e.msg);
-	},
-});
-dragonblocks.registerNode({
-	name: "digilines:log",
-	stable: true,
-	texture: "digiline.png",
-	hardness: 0,
-	desc: "Digiline logging module",
-	digiline: e => {
-		console.log(e);
 	},
 });
