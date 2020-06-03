@@ -17,11 +17,11 @@ To send something via digilines, you can use digilines.receptor_send():
 digilines.receptor_send(x : int, y : int, side : Object, chan : String, msg : mixed) : void
 - x is the x coordinate of the node sending the message
 - y is the y coordinate of the node sending the message
-- side should (but does not need to) include the following entries:
--- left : bool
--- right : bool
--- top : bool
--- bottom : bool
+- side should (but does not need to) include the following entries:<br/>
+-- left : bool<br/>
+-- right : bool<br/>
+-- top : bool<br/>
+-- bottom : bool<br/>
 If a value is unset, it counts as false.
 This object determines where to send the message (on which sides the message will be sent).
 - chan is the channel on which the message should be sent, typically a string
