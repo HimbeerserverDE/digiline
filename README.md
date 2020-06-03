@@ -34,4 +34,5 @@ Receiving messages works by adding a special property to a MapNode, the digiline
 - channel : String ; the channel on which the message was sent
 - msg : mixed ; the message that was sent
 - side : Object ; contains information about from which side of the receiver the data could possibly come from
+<br/>
 You can then use this data to make decisions and/or take actions.
