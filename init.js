@@ -65,9 +65,8 @@ dragonblocks.registerNode({
 	hardness: 0,
 	desc: "Digiline",
 	digiline: e => {
-		console.log(e);
-		if (e.side.left) digilines.receptor_send(e.x + 1, e.y, {"right": true}, e.chan, e.msg);
-		if (e.side.right) digilines.receptor_send(e.x - 1, e.y, {"left": true}, e.chan, e.msg);
+		if (e.side.left) digilines.receptor_send(e.x + 1, e.y, {"right": true}, e.channel, e.msg);
+		if (e.side.right) digilines.receptor_send(e.x - 1, e.y, {"left": true}, e.channel, e.msg);
 	},
 });
 dragonblocks.registerNode({
